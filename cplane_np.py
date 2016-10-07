@@ -28,7 +28,7 @@ class ComplexPlaneNP(AbsComplexPlane):
     f should be the identity function (lambda x : x), which does 
     nothing to the bare complex plane.
 	"""
-	def __init__(self, xmin, xmax, xlen, ymin, ymax, ylen):
+	def __init__(self, xmin, xmax, xlen, ymin, ymax, ylen,plane=pd.DataFrame(), f=lambda x: x):
 		"""
 		Attributes:
 		xmax (float) : maximum horizontal axis value
@@ -47,8 +47,8 @@ class ComplexPlaneNP(AbsComplexPlane):
 		self.ymin = ymin
 		self.ymax = ymax
 		self.ylen = ylen
-		self.plane = pd.DataFrame() 
-		self.f = lambda x: x
+		self.plane = plane 
+		self.f = f
 
 	def refresh(self):
 		"""
@@ -90,9 +90,21 @@ class ComplexPlaneNP(AbsComplexPlane):
 		self.refresh()
 		return 0
 
-'''
+	def julia(c, max=100):
+		def func(z):
+			n=0
+			z=z**2+c
+			if np.absolute(z) < 2:
+				n=n+1
+			else:
+				return 1
+			return n
+		return func
+
+#'''
 #test
 p1=ComplexPlaneNP(1,2,3,4,6,4)
 p1.refresh()
 print(p1.plane)
-'''
+#'''
+print(p1.julia(3))
