@@ -90,21 +90,77 @@ class ComplexPlaneNP(AbsComplexPlane):
 		self.refresh()
 		return 0
 
-	def julia(c, max=100):
-		def func(z):
-			n=0
+def julia(c,max=100):
+	'''
+	input: complex parameter c and an optional positive integer max, return a the result of function func():
+	In func(), when the absolute value of z(z=z^2+c) is greater than 2, then return 1. when it exceed max times, return 0. Otherwise, it returns the times of loop. 
+	'''
+	def func(z):
+		n=0
+		if np.absolute(z)>2:
+			return 1
+		while np.absolute(z)<=2:
+			n=n+1
 			z=z**2+c
-			if np.absolute(z) < 2:
-				n=n+1
-			else:
-				return 1
-			return n
-		return func
+			if n >= max:
+				n=0
+				break
+		return n
+	return func
 
-#'''
+
+'''
 #test
 p1=ComplexPlaneNP(1,2,3,4,6,4)
 p1.refresh()
 print(p1.plane)
-#'''
-print(p1.julia(3))
+'''
+
+def test_julia1():
+	'''
+	test function julia. c=-1.037 + 0.17j, z=-1.00-0.2j
+	'''
+	f1 = julia( -1.037 + 0.17j )
+	expected = 0
+	computed = f1(-1.00-0.2j)
+	success = computed == expected
+	message = 'Computed %s, expected %s' % (computed, expected)
+	assert success, message
+
+def test_julia2():
+	'''
+	test function julia. c=-1.037 + 0.17j, z=-1.01 - 0.2j
+	'''
+	f1 = julia( -1.037 + 0.17j )
+	expected = 20
+	computed = f1(-1.01 - 0.2j)
+	success = computed == expected
+	message = 'Computed %s, expected %s' % (computed, expected)
+	assert success, message
+
+def test_julia3():
+	'''
+	test function julia. c=-1.037 + 0.17j, z=-1.02 - 0.2j
+	'''
+	f1 = julia( -1.037 + 0.17j )
+	expected = 13
+	computed = f1(-1.02 - 0.2j)
+	success = computed == expected
+	message = 'Computed %s, expected %s' % (computed, expected)
+	assert success, message
+
+def test_julia4():
+	'''
+	test function julia. c=-1.037 + 0.17j, z=-1.03 - 0.2j
+	'''
+	f1 = julia( -1.037 + 0.17j )
+	expected = 10
+	computed = f1(-1.03 - 0.2j)
+	success = computed == expected
+	message = 'Computed %s, expected %s' % (computed, expected)
+	assert success, message
+
+test_julia1()
+test_julia2()
+test_julia3()
+test_julia4()
