@@ -32,7 +32,7 @@ Complete the following exercises, saving your solutions in the indicated files. 
 
 Analyze in this section what you found useful about this assignment in your own words. Include any lingering questions or comments that you may have.
 
-**CHANGEME**
+**In this part, the numpy and pandas is really good. But I still don't understand the julia function. Why some complex number's radis won't exceed to 2? How is the absolute value of z(z=z**2+c) is a radias? **
 
 ## Honor Pledge
 
